@@ -1,37 +1,22 @@
-import { login as loginService } from "@/services/loginService";
+import { useLoginMutation } from "@/hooks/useLoginMutation";
+import { LoginData, loginSchema } from "@/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useSessionStore } from "src/stores/sessionStore";
-import { z } from "zod";
-
-const loginSchema = z.object({
-    email: z.string().email("Email inválido"),
-    senha: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-});
-
-type LoginData = z.infer<typeof loginSchema>;
 
 export default function LoginScreen() {
-    const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<LoginData>({
+    const loginMutation = useLoginMutation();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<LoginData>({
         resolver: zodResolver(loginSchema),
     });
-    const router = useRouter();
-    const setSession = useSessionStore((state) => state.setSession);
 
-    const onSubmit = async (data: LoginData) => {
-        try {
-            const response = await loginService({
-                email: data.email,
-                password: data.senha,
-            });
-            setSession(response.access_token, response.refresh_token, "user_id");
-            router.replace("/(protected)/(tabs)");
-        } catch (error) {
-            console.error(error);
-        }
+    const onSubmit = (data: LoginData) => {
+        loginMutation.mutate({
+            email: data.email,
+            password: data.senha,
+        });
     };
 
     return (
@@ -64,9 +49,9 @@ export default function LoginScreen() {
             <TouchableOpacity
                 style={styles.button}
                 onPress={handleSubmit(onSubmit)}
-                disabled={isSubmitting}
+                disabled={loginMutation.isPending}
             >
-                <Text style={styles.buttonText}>{isSubmitting ? "Entrando..." : "Entrar"}</Text>
+                <Text style={styles.buttonText}>{loginMutation.isPending ? "Entrando..." : "Entrar"}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => router.push("/register")}
                 style={styles.linkContainer}

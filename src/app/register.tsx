@@ -1,34 +1,23 @@
-import { register as registerService } from "@/services/registerService";
+import { useRegisterMutation } from "@/hooks/useRegisterMutation";
+import { RegisterData, registerSchema } from "@/schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { z } from "zod";
-
-const registerSchema = z.object({
-  name: z.string().min(2, "Nome obrigatório"),
-  email: z.string().email("Email inválido"),
-  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-});
-
-type RegisterData = z.infer<typeof registerSchema>;
 
 export default function RegisterScreen() {
-  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<RegisterData>({
+  const registerMutation = useRegisterMutation();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
   });
-  const router = useRouter();
 
-  const onSubmit = async (data: RegisterData) => {
-    try {
-      await registerService(data);
-      // Redirecionar ou mostrar sucesso
-      router.replace("/login");
-    } catch (error) {
-      // Tratar erro
-      console.error(error);
-    }
+  const onSubmit = (data: RegisterData) => {
+    registerMutation.mutate({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
   };
 
   return (
@@ -69,9 +58,9 @@ export default function RegisterScreen() {
       <TouchableOpacity
         style={styles.button}
         onPress={handleSubmit(onSubmit)}
-        disabled={isSubmitting}
+        disabled={registerMutation.isPending}
       >
-        <Text style={styles.buttonText}>{isSubmitting ? "Cadastrando..." : "Cadastrar"}</Text>
+        <Text style={styles.buttonText}>{registerMutation.isPending ? "Cadastrando..." : "Cadastrar"}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.replace("/login")}
         style={styles.linkContainer}
