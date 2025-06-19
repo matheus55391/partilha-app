@@ -9,7 +9,7 @@ export function useLoginMutation() {
     mutationFn: login,
     onSuccess: (data) => {
       setSession(data.refresh_token, data.access_token, "user_id");
-      router.replace("/(protected)/(tabs)");
+      router.replace("/(protected)/home");
     },
     onError: (error) => {
       console.error("Login failed:", error);
