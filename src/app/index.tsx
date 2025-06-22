@@ -21,9 +21,10 @@ export default function LoginScreen() {
     };
 
     const session = useSessionStore();
-    console.log("🚀 ~ LoginScreen ~ session:", session.accessToken);
     if(session.accessToken) {
-        <Redirect href="/home" />;
+        return(
+            <Redirect href="/home" />
+        )
     }
 
     return (

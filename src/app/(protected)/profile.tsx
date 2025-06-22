@@ -14,11 +14,9 @@ const MOCK_USER = {
 };
 
 function useProfile() {
-  // Aqui você pode trocar para a chamada real depois
   return useQuery({
     queryKey: ['profile'],
     queryFn: async () => {
-      // Simula delay
       await new Promise(r => setTimeout(r, 400));
       return MOCK_USER;
     },
@@ -46,11 +44,11 @@ export default function ProfileScreen() {
         <View style={styles.avatarWrapper}>
           <View style={styles.avatarShadow} />
             <View style={styles.avatarBorder}>
-            <img
+            {/* <img
               src={user?.image || "https://ui-avatars.com/api/?name=Usuário"}
               alt="Avatar"
               style={{ width: 90, height: 90, borderRadius: 45 }}
-            />
+            /> */}
             </View>
         </View>
         <Text style={styles.profileName}>{user?.name}</Text>
@@ -58,7 +56,7 @@ export default function ProfileScreen() {
       </View>
       <TouchableOpacity style={styles.button} onPress={() => {
         logout();
-        router.replace("/login");
+        router.replace("/");
       }}>
         <Text style={styles.buttonText}>Sair</Text>
       </TouchableOpacity>

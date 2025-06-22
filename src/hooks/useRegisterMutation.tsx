@@ -8,7 +8,7 @@ export function useRegisterMutation() {
   return useMutation<RegisterResponse, Error, RegisterPayload>({
     mutationFn: async (data) => register(data),
     onSuccess: (data) => {
-      router.replace("/login"); 
+      router.replace("/"); 
     },
     onError: (error) => {
       console.error("Register failed:", error);

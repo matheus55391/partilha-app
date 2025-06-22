@@ -13,8 +13,8 @@ const groups = [
 export default function HomeScreen() {
   const router = useRouter();
 
-  const goToGroup = (id) => {
-    router.push('/home');
+  const goToGroup = (id: string) => {
+    router.push('/(protected)/group/[id]', { });
   };
 
   const goToProfile = () => {

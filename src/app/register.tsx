@@ -62,7 +62,7 @@ export default function RegisterScreen() {
       >
         <Text style={styles.buttonText}>{registerMutation.isPending ? "Cadastrando..." : "Cadastrar"}</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.replace("/login")}
+      <TouchableOpacity onPress={() => router.replace("/")}
         style={styles.linkContainer}
       >
         <Text style={styles.linkText}>Já tem uma conta? <Text style={styles.linkBold}>Entrar</Text></Text>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Modal, TextInput } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useState } from "react";
+import { FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 // Mock de extrato do grupo
 const mockTransactions = [
@@ -26,7 +26,7 @@ export default function GroupScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.push('/home')}>
           <Ionicons name="arrow-back" size={28} color="#3b2e5a" />
         </TouchableOpacity>
         <Text style={styles.title}>Grupo #{id}</Text>
