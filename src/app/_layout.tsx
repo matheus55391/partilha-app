@@ -1,30 +1,21 @@
-import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
-import { useSessionStore } from "@/stores/sessionStore";
-import { Redirect, Stack, useSegments } from "expo-router";
-import "./global.css";
+import { Stack } from "expo-router";
+import * as React from 'react';
+import { AppProviders } from "../contexts/AppProviders";
+import './global.css';
+
+
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary
+} from 'expo-router';
 
 export default function RootLayout() {
-  const { accessToken } = useSessionStore();
-  const segments = useSegments();
-
-  const isProtectedRoute = segments[0] === "(protected)";
-
-  // Se está tentando acessar rota protegida sem token: manda para login
-  if (isProtectedRoute && !accessToken) {
-    return <Redirect href="/" />;
-  }
-
-  // Se está no login/registro e já tem token, redireciona para /group
-  if (!isProtectedRoute && accessToken) {
-    return <Redirect href="/(protected)/home" />;
-  }
 
   return (
-    <ReactQueryProvider>
+    <AppProviders>
       <Stack screenOptions={{ headerShown: false }} >
         <Stack.Screen
           name="index"
-
           options={{
             headerShown: false,
           }}
@@ -42,6 +33,6 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-    </ReactQueryProvider>
+    </AppProviders>
   );
 }

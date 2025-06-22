@@ -23,10 +23,19 @@ export default function GroupScreen() {
     setAmount("");
   };
 
+  const handleGoBack = () => {
+    try{
+      router.back();
+    } catch (error) {
+      console.error("Erro ao voltar:", error);
+      router.push('/home');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.push('/home')}>
+        <TouchableOpacity onPress={handleGoBack}>
           <Ionicons name="arrow-back" size={28} color="#3b2e5a" />
         </TouchableOpacity>
         <Text style={styles.title}>Grupo #{id}</Text>
