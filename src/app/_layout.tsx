@@ -16,7 +16,7 @@ export default function RootLayout() {
 
   // Se está no login/registro e já tem token, redireciona para /group
   if (!isProtectedRoute && accessToken) {
-    return <Redirect href="/(protected)/group/[id]" />;
+    return <Redirect href="/(protected)/home" />;
   }
 
   return (
