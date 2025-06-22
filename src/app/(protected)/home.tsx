@@ -1,16 +1,53 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+// Mock de grupos (substitua por fetch da API futuramente)
+const groups = [
+  { id: '1', name: 'Viagem Amigos', imageUrl: null },
+  { id: '2', name: 'Família', imageUrl: null },
+  { id: '3', name: 'Trabalho', imageUrl: null },
+];
 
 export default function HomeScreen() {
   const router = useRouter();
+
+  const goToGroup = (id) => {
+    router.push('/home');
+  };
+
+  const goToProfile = () => {
+    router.push("/profile");
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo ao Partilha!</Text>
-      <Text style={styles.subtitle}>Você está logado.</Text>
-      <TouchableOpacity style={styles.button} onPress={() => router.push("/profile")}> 
-        <Text style={styles.buttonText}>Ir para o Perfil</Text>
-      </TouchableOpacity>
+      <View style={styles.header}>
+        <Text style={styles.title}>Meus Grupos</Text>
+        <TouchableOpacity style={styles.profileButton} onPress={() => router.push("/profile")}> 
+          <Ionicons name="person-circle-outline" size={36} color="#6c47ff" />
+        </TouchableOpacity>
+      </View>
+      <FlatList
+        data={groups}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContent}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.groupCard} onPress={() => goToGroup(item.id)}>
+            <View style={styles.groupAvatar}>
+              {item.imageUrl ? (
+                <Image source={{ uri: item.imageUrl }} style={styles.groupImage} />
+              ) : (
+                <Ionicons name="people" size={32} color="#fff" />
+              )}
+            </View>
+            <Text style={styles.groupName}>{item.name}</Text>
+            <Ionicons name="chevron-forward" size={20} color="#bbb" style={{ marginLeft: 'auto' }} />
+          </TouchableOpacity>
+        )}
+        ListEmptyComponent={<Text style={styles.emptyText}>Você ainda não participa de nenhum grupo.</Text>}
+      />
     </View>
   );
 }
@@ -18,37 +55,64 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 24,
     backgroundColor: "#f7f7fa",
+    paddingTop: 48,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 24,
+    marginBottom: 16,
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#3b2e5a",
-    marginBottom: 8,
   },
-  subtitle: {
-    fontSize: 16,
-    color: "#6c6c80",
-    marginBottom: 32,
+  profileButton: {
+    marginLeft: 12,
   },
-  button: {
-    backgroundColor: "#6c47ff",
-    borderRadius: 10,
-    paddingVertical: 14,
-    paddingHorizontal: 32,
+  listContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+  },
+  groupCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 18,
+    marginBottom: 14,
     shadowColor: "#6c47ff",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.07,
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 1,
   },
-  buttonText: {
-    color: "#fff",
+  groupAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#6c47ff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 16,
+  },
+  groupImage: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+  },
+  groupName: {
     fontSize: 18,
-    fontWeight: "bold",
-    letterSpacing: 1.1,
+    color: "#3b2e5a",
+    fontWeight: "500",
+  },
+  emptyText: {
+    textAlign: "center",
+    color: "#aaa",
+    marginTop: 40,
+    fontSize: 16,
   },
 });

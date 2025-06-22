@@ -1,7 +1,8 @@
 import { useLoginMutation } from "@/hooks/useLoginMutation";
 import { LoginData, loginSchema } from "@/schemas/loginSchema";
+import { useSessionStore } from "@/stores/sessionStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -18,6 +19,12 @@ export default function LoginScreen() {
             password: data.senha,
         });
     };
+
+    const session = useSessionStore();
+    console.log("🚀 ~ LoginScreen ~ session:", session.accessToken);
+    if(session.accessToken) {
+        <Redirect href="/home" />;
+    }
 
     return (
         <View style={styles.container}>

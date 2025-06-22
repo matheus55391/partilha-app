@@ -3,14 +3,8 @@ import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <ReactQueryProvider>
-      <Stack>
-        <Stack.Screen
-          name="(protected)"
-          options={{
-            headerShown: false,
-          }}
-        />
+    <ReactQueryProvider >
+      <Stack initialRouteName="login">
         <Stack.Screen
           name="login"
           options={{  
@@ -19,6 +13,12 @@ export default function RootLayout() {
         />
         <Stack.Screen
           name="register"
+          options={{
+            headerShown: false,
+          }}
+        />
+         <Stack.Screen
+          name="(protected)"
           options={{
             headerShown: false,
           }}

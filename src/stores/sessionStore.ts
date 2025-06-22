@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface SessionState {
   accessToken: string | null;
@@ -8,10 +9,17 @@ interface SessionState {
   clearSession: () => void;
 }
 
-export const useSessionStore = create<SessionState>((set) => ({
-  accessToken: null,
-  refreshToken: null,
-  userId: null,
-  setSession: (accessToken, refreshToken, userId) => set({ accessToken, refreshToken, userId }),
-  clearSession: () => set({ accessToken: null, refreshToken: null, userId: null }),
-}));
+export const useSessionStore = create(
+  persist<SessionState>(
+    (set) => ({
+      accessToken: null,
+      refreshToken: null,
+      userId: null,
+      setSession: (accessToken, refreshToken, userId) => set({ accessToken, refreshToken, userId }),
+      clearSession: () => set({ accessToken: null, refreshToken: null, userId: null }),
+    }),
+    {
+      name: 'session-storage',
+    }
+  )
+);
