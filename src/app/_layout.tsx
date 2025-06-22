@@ -1,6 +1,7 @@
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 import { useSessionStore } from "@/stores/sessionStore";
 import { Redirect, Stack, useSegments } from "expo-router";
+import "./global.css";
 
 export default function RootLayout() {
   const { accessToken } = useSessionStore();
