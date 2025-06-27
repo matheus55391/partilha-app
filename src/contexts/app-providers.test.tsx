@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import React from 'react';
 import { Text } from 'react-native';
-import { AppProviders } from './AppProviders';
+import { AppProviders } from './app-providers';
 
 jest.mock('@/hooks/useColorScheme', () => ({
     useColorScheme: () => ({ isDarkColorScheme: false }),

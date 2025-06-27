@@ -1,4 +1,4 @@
-import { useSessionStore } from "@/stores/sessionStore";
+import { useSessionStore } from "@/stores/session-store";
 
 export function useLogout() {
   const clearSession = useSessionStore((state) => state.clearSession);

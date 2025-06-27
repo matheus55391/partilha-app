@@ -1,9 +1,13 @@
-import { login, LoginPayload, LoginResponse } from "@/services/loginService";
-import { useSessionStore } from "@/stores/sessionStore";
+import { login, LoginPayload, LoginResponse } from "@/services/login-service";
+import { useSessionStore } from "@/stores/session-store";
 import { useMutation } from "@tanstack/react-query";
 import { router } from "expo-router";
 
-export function useLoginMutation() {
+interface UseLoginMutationOptions {
+  onError?: (error: Error) => void;
+}
+
+export function useLoginMutation(options?: UseLoginMutationOptions) {
   const setSession = useSessionStore((state) => state.setSession);
   return useMutation<LoginResponse, Error, LoginPayload>({
     mutationFn: login,
@@ -13,6 +17,7 @@ export function useLoginMutation() {
     },
     onError: (error) => {
       console.error("Login failed:", error);
+      options?.onError?.(error);
     },
   });
 }

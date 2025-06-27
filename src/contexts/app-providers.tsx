@@ -1,11 +1,11 @@
 import { NAV_THEME } from '@/constants';
-import { ReactQueryProvider } from '@/contexts/ReactQueryProvider';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { ReactQueryProvider } from '@/contexts/react-query-provider';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { ReactNode } from 'react';
 import { Platform } from 'react-native';
-import { SessionRedirectProvider } from './SessionRedirectProvider';
+import { SessionRedirectProvider } from './session-redirect-provider';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,

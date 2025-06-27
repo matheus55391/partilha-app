@@ -1,9 +1,9 @@
-import * as sessionStore from '@/stores/sessionStore';
+import * as sessionStore from '@/stores/session-store';
 import { render } from '@testing-library/react-native';
 import { useRouter, useSegments } from 'expo-router';
 import React from 'react';
 import { Text } from 'react-native';
-import { SessionRedirectProvider } from './SessionRedirectProvider';
+import { SessionRedirectProvider } from './session-redirect-provider';
 
 jest.mock('expo-router', () => ({
     useRouter: jest.fn(),

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import * as React from 'react';
-import { AppProviders } from "../contexts/AppProviders";
+import { AppProviders } from "../contexts/app-providers";
 import './global.css';
 
 

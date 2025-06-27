@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import React from 'react';
 import { Text } from 'react-native';
-import { ReactQueryProvider } from './ReactQueryProvider';
+import { ReactQueryProvider } from './react-query-provider';
 
 describe('ReactQueryProvider', () => {
     it('renderiza o QueryClientProvider corretamente', () => {

@@ -1,5 +1,5 @@
 import api from '@/lib/axios';
-import { register } from './registerService';
+import { register } from './register-service';
 
 jest.mock('@/lib/axios');
 const mockedApi = api as jest.Mocked<typeof api>;

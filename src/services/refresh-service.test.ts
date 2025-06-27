@@ -1,5 +1,5 @@
 import api from '@/lib/axios';
-import { refreshToken } from './refreshService';
+import { refreshToken } from './refresh-service';
 
 jest.mock('@/lib/axios');
 const mockedApi = api as jest.Mocked<typeof api>;

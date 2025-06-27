@@ -1,5 +1,5 @@
 import { act } from '@testing-library/react-native';
-import { useSessionStore } from './sessionStore';
+import { useSessionStore } from './session-store';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
     setItem: jest.fn(),

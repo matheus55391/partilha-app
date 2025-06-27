@@ -1,4 +1,4 @@
-import { useSessionStore } from '@/stores/sessionStore';
+import { useSessionStore } from '@/stores/session-store';
 import { useRouter, useSegments } from 'expo-router';
 import React, { ReactNode, useEffect } from 'react';
 

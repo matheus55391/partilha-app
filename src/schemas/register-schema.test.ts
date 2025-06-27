@@ -1,4 +1,4 @@
-import { registerSchema } from './registerSchema';
+import { registerSchema } from './register-schema';
 
 describe('registerSchema', () => {
     it('valida um registro válido', () => {

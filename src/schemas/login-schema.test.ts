@@ -1,4 +1,4 @@
-import { loginSchema } from './loginSchema';
+import { loginSchema } from './login-schema';
 
 describe('loginSchema', () => {
     it('valida um login válido', () => {

@@ -1,4 +1,4 @@
-import { useSessionStore } from "@/stores/sessionStore";
+import { useSessionStore } from "@/stores/session-store";
 import { Redirect, Stack } from "expo-router";
 
 export default function ProtectedLayout() {
@@ -7,7 +7,7 @@ export default function ProtectedLayout() {
     if (!accessToken) {
         return <Redirect href="/" />;
     }
-    
+
     return (
         <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="home" options={{ headerShown: false }} />

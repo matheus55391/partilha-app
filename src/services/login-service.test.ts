@@ -1,5 +1,5 @@
 import api from '@/lib/axios';
-import { login } from './loginService';
+import { login } from './login-service';
 
 jest.mock('@/lib/axios');
 const mockedApi = api as jest.Mocked<typeof api>;
